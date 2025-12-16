@@ -108,14 +108,20 @@ TEMPLATES = [
 
 
 
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=f"postgresql://{config('DB_USER', default='postgres')}:{config('DB_PASSWORD', default='password')}@{config('DB_HOST', default='localhost')}:{config('DB_PORT', default=5432)}/{config('DB_NAME', default='acocheck_db')}",
+#         conn_max_age=600,
+#         ssl_require=False,
+#     )
+# }
+
 DATABASES = {
     "default": dj_database_url.config(
         default=config("DATABASE_URL"),
         conn_max_age=600,
     )
 }
-
-
 # --------------------------------------------------
 # AUTH
 # --------------------------------------------------
