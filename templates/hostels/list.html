@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Hostels - AcoCheck{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+
+    <h2 class="fw-bold mb-3">My Hostels</h2>
+    <p class="text-muted mb-4">All hostels registered under your account</p>
+
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{% url 'hostels:add' %}" class="btn btn-primary">
+            <i class="fa fa-plus"></i> Add New Hostel
+        </a>
+    </div>
+
+    <!-- Grid -->
+    <div class="row g-4">
+
+        {% for hostel in hostels %}
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-3 hostel-card">
+
+                <div class="d-flex justify-content-between">
+                    <h5 class="fw-bold mb-1">{{ hostel.name }}</h5>
+
+                    {% if hostel.status == "pending" %}
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    {% elif hostel.status == "approved" %}
+                        <span class="badge bg-success">Approved</span>
+                    {% else %}
+                        <span class="badge bg-danger">Rejected</span>
+                    {% endif %}
+                </div>
+
+                <small class="text-muted">License: {{ hostel.license_id }}</small>
+                <br>
+                <small class="text-muted">City: {{ hostel.city }}</small>
+                <br>
+                <small class="text-muted">Capacity: {{ hostel.capacity }}</small>
+
+                <hr>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'hostels:detail' hostel.id %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fa fa-eye"></i> View
+                    </a>
+
+                    <a href="{% url 'hostels:edit' hostel.id %}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fa fa-edit"></i> Edit
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">No hostels added yet.</p>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}

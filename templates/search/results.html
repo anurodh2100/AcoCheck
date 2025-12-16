@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+
+    <!-- =========================
+          Search Bar (ADDED)
+    ========================== -->
+    <form action="{% url 'search:search' %}" method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control"
+                   placeholder="Search residents, hostels, verification..."
+                   value="{{ query }}">
+            <button class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass"></i> Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Header -->
+    <h2 class="fw-bold mb-1">Search Results</h2>
+    <div class="text-muted mb-4">
+        Showing results for: <strong>{{ query }}</strong>
+    </div>
+
+
+    <!-- =========================
+          Residents Section
+    ========================== -->
+    <div class="card border-0 shadow-sm p-4 mb-4">
+        <h4 class="fw-bold mb-3">Residents</h4>
+
+        {% if residents %}
+            {% for r in residents %}
+                <div class="d-flex align-items-center resident-row py-2">
+                    <img src="{% if r.photo %}{{ r.photo.url }}{% else %}{% static 'images/avatar.svg' %}{% endif %}"
+                         width="50" class="rounded-circle me-3">
+
+                    <div class="flex-grow-1">
+                        <strong class="d-block">{{ r.name }}</strong>
+                        <small class="text-muted">
+                            {{ r.id_proof_type }} — {{ r.id_proof_number }}
+                        </small>
+                    </div>
+
+                    <a href="{% url 'residents:detail' r.id %}" class="btn btn-outline-primary btn-sm">
+                        View
+                    </a>
+                </div>
+                <hr class="mt-2 mb-2">
+            {% endfor %}
+        {% else %}
+            <p class="text-muted mb-0">No matching residents.</p>
+        {% endif %}
+    </div>
+
+
+    <!-- =========================
+          Hostels Section
+    ========================== -->
+    <div class="card border-0 shadow-sm p-4 mb-4">
+        <h4 class="fw-bold mb-3">Hostels</h4>
+
+        {% if hostels %}
+            {% for h in hostels %}
+                <div class="hostel-item py-2">
+                    <strong class="d-block">{{ h.name }}</strong>
+                    <small class="text-muted d-block">License: {{ h.license_id }}</small>
+                    <small class="text-muted">City: {{ h.city }}</small>
+                </div>
+                <hr class="mt-2 mb-2">
+            {% endfor %}
+        {% else %}
+            <p class="text-muted mb-0">No matching hostels.</p>
+        {% endif %}
+    </div>
+
+
+    <!-- =========================
+          Verification Section
+    ========================== -->
+    <div class="card border-0 shadow-sm p-4 mb-4">
+        <h4 class="fw-bold mb-3">Verification Records</h4>
+
+        {% if logs %}
+            {% for log in logs %}
+                <div class="py-2">
+                    <strong class="d-block">{{ log.resident.name }}</strong>
+                    <span class="badge bg-info text-dark">{{ log.status }}</span><br>
+                    <small class="text-muted">{{ log.verified_at|date:"M d, Y" }}</small>
+                </div>
+                <hr class="mt-2 mb-2">
+            {% endfor %}
+        {% else %}
+            <p class="text-muted mb-0">No matching verification logs.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

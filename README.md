@@ -61,9 +61,30 @@ python manage.py runserver
 
 Visit http://127.0.0.1:8000/ to view the app.
 
+<<<<<<< HEAD
 
 Adjust environment variables in the `docker-compose.yml` or a .env file as needed.
 
+=======
+## Docker
+A `docker-compose.yml` and `Dockerfile` are included for containerized runs. To build and start the services:
+
+```bash
+docker-compose up --build
+```
+
+Adjust environment variables in the `docker-compose.yml` or a .env file as needed.
+
+## Development notes
+- Apps live under the `apps/` directory. Key apps: `accounts`, `hostels`, `residents`, `verification`, `search`, `dashboard`.
+- Templates are in the `templates/` directory and static assets in `static/` and `staticfiles/`.
+- To run tests (if available):
+
+```bash
+python manage.py test
+```
+
+>>>>>>> 1f8c4d1 (Initial commit - AcoCheck)
 - Keep migrations committed. Use `python manage.py makemigrations` to generate them.
 
 ## Contributing

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Resident - AcoCheck{% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="card p-3 shadow-sm">
+    <div class="d-flex align-items-center mb-3">
+
+        {% if resident.photo %}
+            <img src="{{ resident.photo.url }}" width="80" class="me-3 rounded-circle">
+        {% else %}
+            <img src="{% static 'images/avatar.svg' %}" width="80" class="me-3 rounded-circle">
+        {% endif %}
+
+        <div>
+            <h3>{{ resident.name }}</h3>
+            <div class="text-muted small">
+                {{ resident.id_proof_type }}: {{ resident.id_proof_number }}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <p><strong>Phone:</strong> {{ resident.phone }}</p>
+        <p><strong>Permanent Address:</strong><br>{{ resident.permanent_address }}</p>
+      </div>
+      <div class="col-md-4">
+        <p><strong>Status:</strong> <span class="badge status-badge {{ resident.status|lower }}">{{ resident.status }}</span></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

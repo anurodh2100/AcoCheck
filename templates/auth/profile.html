@@ -1,0 +1,66 @@
+{% extends "auth/auth_base.html" %}
+{% load static %}
+{% block title %}My Profile - AcoCheck{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 800px;">
+
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+        <div class="d-flex align-items-center mb-4">
+            <img src="{% static 'images/user.png' %}" class="rounded-circle me-3" width="70" height="70" alt="User">
+
+            <div>
+                <h3 class="mb-0">{{ user.username }}</h3>
+                <small class="text-muted">{{ user.get_role_display }}</small>
+            </div>
+        </div>
+
+        <hr>
+
+        <h5 class="text-primary fw-semibold mb-3">Account Information</h5>
+
+        <div class="mb-3">
+            <label class="text-muted small">Full Name</label>
+            <div class="fw-semibold">{{ user.full_name|default:"Not provided" }}</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="text-muted small">Email</label>
+            <div class="fw-semibold">{{ user.email }}</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="text-muted small">Phone</label>
+            <div class="fw-semibold">{{ user.phone|default:"Not provided" }}</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="text-muted small">Registered Role</label>
+            <div class="fw-semibold">{{ user.get_role_display }}</div>
+        </div>
+
+        {% if user.role == "owner" %}
+        <div class="mb-3">
+            <label class="text-muted small">Assigned Hostel</label>
+            <div class="fw-semibold">
+                {% if user.hostel %}
+                    {{ user.hostel.name }}
+                {% else %}
+                    <span class="text-danger">Not assigned</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <hr class="my-4">
+
+        <h5 class="text-primary fw-semibold mb-3">Account Actions</h5>
+
+        <a href="{% url 'accounts:logout' %}" class="btn btn-danger px-4">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

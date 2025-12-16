@@ -27,3 +27,12 @@ venv/
 # =========================
 # OS / Editor files
 # =
+<<<<<<< HEAD
+=======
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+>>>>>>> 1f8c4d1 (Initial commit - AcoCheck)

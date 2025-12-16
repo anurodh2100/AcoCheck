@@ -1,0 +1,53 @@
+{% extends "auth/auth_base.html" %}
+{% load static %}
+{% block title %}Login - AcoCheck{% endblock %}
+
+{% block content %}
+  <div class="text-center mb-4">
+    <img src="{% static 'images/logo.svg' %}" width="64" alt="logo">
+    <h2 class="mt-2">AcoCheck</h2>
+    <p class="text-muted">Real-Time Resident Tracking System</p>
+  </div>
+
+  {% if messages %}
+    {% for m in messages %}
+      <div class="alert alert-{{ m.tags }}">{{ m }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" action="{% url 'accounts:login' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Username</label>
+      <input name="username" class="form-control" placeholder="Enter username" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Role</label>
+      <select name="role" class="form-select">
+        <option value="">Select Role</option>
+        <option value="owner">Hostel Owner</option>
+        <option value="police">Police Verifier</option>
+        <option value="admin">Master Admin</option>
+      </select>
+    </div>
+
+    <div class="d-grid">
+      <button class="btn btn-auth">Login</button>
+    </div>
+  </form>
+
+  <div class="text-center mt-3">
+    <a href="{% url 'accounts:register' %}" class="small">Register as Hostel Owner</a>
+  </div>
+
+  <hr class="my-4">
+  <div class="text-center text-muted small">
+    Demo: owner1/owner123 | police1/police123 | admin1/admin123
+  </div>
+{% endblock %}

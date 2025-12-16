@@ -1,0 +1,85 @@
+/* -----------------------
+   FULL AUTH PAGE LAYOUT
+------------------------ */
+
+body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.bg-auth {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f6f7fb 0%, #f2f4f7 100%);
+}
+
+/* WRAPPER centers everything */
+.auth-wrapper {
+    min-height: 100vh;
+    padding: 24px;
+}
+
+/* Login/Register card */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 40px 32px;
+    border-radius: 18px;
+    box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+}
+
+/* Smaller screens */
+@media (max-width: 500px) {
+    .auth-card {
+        padding: 28px 22px;
+        border-radius: 14px;
+    }
+}
+
+/* Inputs */
+.auth-card .form-control,
+.auth-card .form-select {
+    border-radius: 10px;
+    height: 50px;
+    background: #fafbff;
+    border: 1px solid #d7dbe2;
+    font-size: 15px;
+}
+
+.auth-card .form-control:focus {
+    border-color: #4974ff;
+    box-shadow: 0 0 0 3px rgba(73,116,255,0.25);
+}
+
+/* Login Button */
+.btn-auth {
+    background: #162f4a !important;
+    border: none !important;
+    height: 52px;
+    border-radius: 12px;
+    color: #fff !important;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(22,47,74,0.25);
+}
+
+.btn-auth:hover {
+    background: #12263d !important;
+    transform: translateY(-2px);
+}
+
+/* Logo */
+.auth-logo {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 0 auto 12px auto;
+}
+
+/* Footer */
+.auth-footer {
+    margin-top: -40px;
+    padding-bottom: 20px;
+    color: #8a93a3;
+}

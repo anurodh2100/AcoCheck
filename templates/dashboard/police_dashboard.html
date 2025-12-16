@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Police Dashboard{% endblock %}
+{% load static %}
+{% block content %}
+<div class="dashboard-wrapper">
+
+    <h2 class="fw-bold mb-1">Police Dashboard</h2>
+    <p class="text-muted mb-4">Real-time verification panel</p>
+
+    <!-- Pending Hostels -->
+    <div class="card p-3 shadow-sm mb-4">
+        <h4 class="fw-bold mb-3 text-primary">Pending Hostel Approvals</h4>
+
+        {% if pending_hostels %}
+            {% for h in pending_hostels %}
+                <div class="py-2">
+                    <strong>{{ h.name }}</strong><br>
+                    <small>Owner: {{ h.owner.username }}</small><br>
+                    <small class="text-muted">License: {{ h.license_id }}</small>
+
+                    <div class="mt-2">
+                        <a href="{% url 'verification:approve_hostel' h.id %}" 
+                           class="btn btn-success btn-sm">Approve</a>
+
+                        <a href="{% url 'verification:reject_hostel' h.id %}" 
+                           class="btn btn-danger btn-sm">Reject</a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No pending hostel requests.</p>
+        {% endif %}
+    </div>
+
+
+    <!-- Pending Residents -->
+    <div class="card p-3 shadow-sm mb-4">
+        <h4 class="fw-bold mb-3 text-primary">Pending Resident Verification</h4>
+
+        {% if pending_residents %}
+            {% for r in pending_residents %}
+                <div class="py-2 d-flex align-items-center">
+                    <img src="{% if r.photo %}{{ r.photo.url }}{% else %}{% static 'images/avatar.svg' %}{% endif %}"
+                         width="45" class="rounded-circle me-3">
+
+                    <div class="flex-grow-1">
+                        <strong>{{ r.name }}</strong><br>
+                        <small class="text-muted">{{ r.id_proof_type }} - {{ r.id_proof_number }}</small>
+                    </div>
+
+                    <div>
+                        <a href="{% url 'verification:verify_resident' r.id %}" class="btn btn-info btn-sm">
+                            Verify
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No pending resident verifications.</p>
+        {% endif %}
+    </div>
+
+
+    <!-- Recent Logs -->
+    <div class="card p-3 shadow-sm mb-4">
+        <h4 class="fw-bold mb-3 text-primary">Recent Verification Activity</h4>
+
+        {% if recent_logs %}
+            {% for log in recent_logs %}
+                <div class="py-2">
+                    <strong>{{ log.resident.name }}</strong>  
+                    <span class="badge bg-secondary">{{ log.status }}</span><br>
+                    <small class="text-muted">
+                        {{ log.verified_at|date:"M d, Y H:i" }}
+                    </small>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No activity recorded.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

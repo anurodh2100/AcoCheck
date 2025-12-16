@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Dashboard - AcoCheck{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+
+  <div class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <h2 class="fw-bold mb-1">Hostel Owner Dashboard</h2>
+      <div class="text-muted">Welcome back, {{ user.username|title }}</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="tile-grid mb-4">
+    <div class="tile blue">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="small text-muted">Total Residents</div>
+          <h3>{{ total_residents|default:0 }}</h3>
+        </div>
+        <div class="tile-icon"><i class="fa fa-users fa-2x"></i></div>
+      </div>
+    </div>
+
+    <div class="tile yellow">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="small text-muted">Pending Approval</div>
+          <h3>{{ pending|default:0 }}</h3>
+        </div>
+        <div class="tile-icon"><i class="fa fa-clock fa-2x"></i></div>
+      </div>
+    </div>
+
+    <div class="tile green">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="small text-muted">Approved</div>
+          <h3>{{ approved|default:0 }}</h3>
+        </div>
+        <div class="tile-icon"><i class="fa fa-check-circle fa-2x"></i></div>
+      </div>
+    </div>
+
+    <div class="tile red">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <div class="small text-muted">Rejected</div>
+          <h3>{{ rejected|default:0 }}</h3>
+        </div>
+        <div class="tile-icon"><i class="fa fa-times-circle fa-2x"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Residents + Sidebar cards -->
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">Recent Residents</h5>
+          <a href="{% url 'residents:add' %}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Add Resident</a>
+        </div>
+        <hr>
+        {% if recent_residents %}
+          {% for r in recent_residents %}
+            <div class="resident-item d-flex justify-content-between align-items-center p-2">
+              <div>
+                <strong>{{ r.name }}</strong><br>
+                <small class="text-muted">
+                  {% if r.id_proof_type %}{{ r.id_proof_type }}: {{ r.id_proof_number }}{% endif %}
+                </small>
+              </div>
+              <div>
+                <span class="badge status-badge {{ r.status|lower }}">{{ r.status }}</span>
+              </div>
+            </div>
+            <hr>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">No residents yet.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm p-3">
+        <h5 class="fw-bold">Hostel Status</h5>
+        {% if hostel %}
+          <div class="mb-3">
+            <span class="badge bg-success">Approved</span>
+          </div>
+          <p><strong>Hostel:</strong> {{ hostel.name }}</p>
+          <p><strong>License:</strong> {{ hostel.license_id }}</p>
+          <p><strong>Location:</strong> {{ hostel.city }}</p>
+        {% else %}
+          <p class="text-muted">No hostel registered. <a href="{% url 'hostels:add' %}">Add one</a></p>
+        {% endif %}
+      </div>
+
+      <div class="card mt-3 border-0 shadow-sm p-3">
+        <h5 class="fw-bold">Quick Actions</h5>
+        <a href="{% url 'residents:add' %}" class="btn btn-primary w-100 mb-2"><i class="fa fa-user-plus"></i> Add Resident</a>
+        <a href="{% url 'residents:list' %}" class="btn btn-outline-primary w-100 mb-2"><i class="fa fa-list"></i> View All Residents</a>
+
+        {% if hostel and hostel.id %}
+          <a href="{% url 'hostels:edit' hostel.id %}" class="btn btn-outline-secondary w-100"><i class="fa fa-edit"></i> Edit Hostel Info</a>
+        {% else %}
+          <a href="{% url 'hostels:add' %}" class="btn btn-outline-secondary w-100"><i class="fa fa-plus"></i> Add Hostel</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

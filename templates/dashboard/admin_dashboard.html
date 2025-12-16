@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - AcoCheck{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold mb-4">Admin Control Panel</h3>
+
+<div class="row g-4">
+
+    <div class="col-12 col-md-4">
+        <div class="card bg-white shadow-sm border-0 rounded-4 p-4">
+            <h6 class="text-muted mb-1">Total Hostels</h6>
+            <h2 class="fw-bold">{{ hostels_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="card bg-white shadow-sm border-0 rounded-4 p-4">
+            <h6 class="text-muted mb-1">Total Residents</h6>
+            <h2 class="fw-bold">{{ residents_count }}</h2>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+        <div class="card bg-white shadow-sm border-0 rounded-4 p-4">
+            <h6 class="text-muted mb-1">Police Verifiers</h6>
+            <h2 class="fw-bold">{{ police_count }}</h2>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

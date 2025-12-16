@@ -1,0 +1,57 @@
+{% load static %}
+
+<div id="sidebar" class="sidebar">
+    <h6 class="sidebar-heading">Navigation</h6>
+
+    {% if user.role == "owner" %}
+        <a class="sidebar-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+           href="{% url 'dashboard:home' %}">
+            <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+
+        <a class="sidebar-link {% if 'hostels' in request.path %}active{% endif %}"
+           href="{% url 'hostels:dashboard' %}">
+            <i class="fa-solid fa-building"></i> My Hostels
+        </a>
+
+        <a class="sidebar-link {% if 'residents' in request.path %}active{% endif %}"
+           href="{% url 'residents:list' %}">
+            <i class="fa-solid fa-users"></i> Residents
+        </a>
+
+        <a class="sidebar-link {% if 'search' in request.path %}active{% endif %}"
+   href="{% url 'search:search' %}">
+    <i class="fa-solid fa-magnifying-glass"></i> Search
+</a>
+
+    {% endif %}
+
+    {% if user.role == "police" %}
+        <a class="sidebar-link" href="{% url 'dashboard:home' %}">
+            <i class="fa-solid fa-shield"></i> Dashboard
+        </a>
+
+        <a class="sidebar-link" href="{% url 'verification:pending' %}">
+            <i class="fa-solid fa-inbox"></i> Pending Verification
+        </a>
+
+        <a class="sidebar-link" href="{% url 'search:search' %}">
+            <i class="fa-solid fa-magnifying-glass"></i> Search
+        </a>
+    {% endif %}
+
+    {% if user.role == "admin" %}
+        <a class="sidebar-link" href="{% url 'dashboard:home' %}">
+            <i class="fa-solid fa-chart-line"></i> Admin Dashboard
+        </a>
+
+        <a class="sidebar-link" href="/admin/">
+            <i class="fa-solid fa-gear"></i> Admin Panel
+        </a>
+    {% endif %}
+
+    <div class="sidebar-footer">
+        <hr>
+        <p class="footer-text">Made for AcoCheck</p>
+    </div>
+</div>

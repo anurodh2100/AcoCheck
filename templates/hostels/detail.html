@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Hostel Details - AcoCheck{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <h3 class="fw-bold">{{ hostel.name }}</h3>
+    <p class="text-muted">{{ hostel.address }}</p>
+</div>
+
+<div class="card p-4 rounded-4 shadow-sm border-0">
+
+    <div class="row mb-3">
+        <div class="col-md-4"><strong>License ID:</strong></div>
+        <div class="col-md-8">{{ hostel.license_id }}</div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4"><strong>Owner:</strong></div>
+        <div class="col-md-8">{{ hostel.owner.username }}</div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4"><strong>City:</strong></div>
+        <div class="col-md-8">{{ hostel.city }}</div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4"><strong>Capacity:</strong></div>
+        <div class="col-md-8">{{ hostel.capacity }}</div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4"><strong>Status:</strong></div>
+        <div class="col-md-8">
+            <span class="badge bg-secondary">{{ hostel.status|title }}</span>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
