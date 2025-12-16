@@ -6,8 +6,7 @@ from django.conf.urls.static import static
 from django.http import HttpResponse
 
 urlpatterns = [
-    path("", lambda request: HttpResponse("AcoCheck is running ✅")),
-    # path("", lambda request: redirect("dashboard:home")),
+    path("", lambda request: redirect("dashboard:home")),
     path("admin/", admin.site.urls),
     path("accounts/", include("apps.accounts.urls")),
     path("hostels/", include("apps.hostels.urls")),
