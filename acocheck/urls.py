@@ -6,14 +6,16 @@ from django.conf.urls.static import static
 from django.http import HttpResponse
 
 urlpatterns = [
-    path("", lambda request: redirect("dashboard:home")),
+    # path("", lambda request: redirect("dashboard:home")),
+    # path("admin/", admin.site.urls),
+    # path("accounts/", include("apps.accounts.urls")),
+    # path("hostels/", include("apps.hostels.urls")),
+    # path("residents/", include("apps.residents.urls")),
+    # path("verification/", include("apps.verification.urls")),
+    # path("dashboard/", include("apps.dashboard.urls")),
+    # path("search/", include("apps.search.urls")),
+    path("", lambda request: HttpResponse("AcoCheck OK ✅")),
     path("admin/", admin.site.urls),
-    path("accounts/", include("apps.accounts.urls")),
-    path("hostels/", include("apps.hostels.urls")),
-    path("residents/", include("apps.residents.urls")),
-    path("verification/", include("apps.verification.urls")),
-    path("dashboard/", include("apps.dashboard.urls")),
-    path("search/", include("apps.search.urls")),
 ]
 
 if settings.DEBUG:
