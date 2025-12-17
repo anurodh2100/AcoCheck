@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 # --------------------------------------------------
 CSRF_TRUSTED_ORIGINS = [
-    "https://acocheck-production.up.railway.app",
+    "https://acocheck.up.railway.app",
 ]
 SECRET_KEY = config("SECRET_KEY", default="django-insecure-temp-key")
 
